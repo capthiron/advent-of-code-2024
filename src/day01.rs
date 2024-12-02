@@ -21,7 +21,7 @@ pub fn solve_part2(input: &str) -> i32 {
     for v in left {
         match total_amount_right.get(&v) {
             Some(&amount) => sum_of_similarity += v * amount,
-            _ => {
+            None => {
                 let mut amount_right = 0;
                 for rv in &right {
                     if *rv == v {
