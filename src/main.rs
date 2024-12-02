@@ -1,6 +1,7 @@
 use std::env;
 
 mod day01;
+mod day02;
 mod utils;
 
 fn main() {
@@ -23,7 +24,11 @@ fn main() {
             println!("Day 1 - Part 1: {}", day01::solve_part1(&input));
             println!("Day 1 - Part 2: {}", day01::solve_part2(&input));
         }
-        // Add more cases for other days
+        "2" => {
+            let input = utils::read_file_to_string("input/day02.txt").unwrap();
+            println!("Day 2 - Part 1: {}", day02::solve_part1(&input));
+            println!("Day 2 - Part 2: {}", day02::solve_part2(&input));
+        }
         _ => {
             eprintln!("Invalid day: {}. Please enter a valid day number.", day);
         }
