@@ -5,36 +5,23 @@ pub fn solve_part1(input: &str) -> i32 {
     left.sort();
     right.sort();
 
-    let mut sum_of_differences = 0;
-    for (i, v) in left.iter().enumerate() {
-        sum_of_differences += (v - right.get(i).unwrap()).abs()
-    }
-
-    sum_of_differences
+    left.iter()
+        .enumerate()
+        .map(|(i, left_value)| (left_value - right.get(i).unwrap()).abs())
+        .sum()
 }
 
 pub fn solve_part2(input: &str) -> i32 {
     let (left, right) = parse_input(input);
-    let mut total_amount_right = HashMap::new();
+    let mut total_amount_in_right: HashMap<&i32, i32> = HashMap::new();
 
-    let mut sum_of_similarity = 0;
-    for v in left {
-        match total_amount_right.get(&v) {
-            Some(&amount) => sum_of_similarity += v * amount,
-            None => {
-                let mut amount_right = 0;
-                for rv in &right {
-                    if *rv == v {
-                        amount_right += 1
-                    }
-                }
-                total_amount_right.insert(v, amount_right);
-                sum_of_similarity += v * amount_right
-            }
-        }
-    }
+    right
+        .iter()
+        .for_each(|value| *total_amount_in_right.entry(value).or_insert(0) += 1);
 
-    sum_of_similarity
+    left.iter()
+        .map(|value| value * total_amount_in_right.get(value).unwrap_or(&0))
+        .sum()
 }
 
 fn parse_input(input: &str) -> (Vec<i32>, Vec<i32>) {
