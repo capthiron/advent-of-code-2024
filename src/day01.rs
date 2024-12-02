@@ -28,11 +28,11 @@ fn parse_input(input: &str) -> (Vec<i32>, Vec<i32>) {
     let mut left: Vec<i32> = vec![];
     let mut right: Vec<i32> = vec![];
 
-    for line in input.lines() {
+    input.lines().for_each(|line| {
         let mut iter = line.split_whitespace();
         left.push(iter.next().unwrap().parse().unwrap());
         right.push(iter.next().unwrap().parse().unwrap());
-    }
+    });
 
     (left, right)
 }
