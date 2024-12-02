@@ -1,37 +1,26 @@
 pub fn solve_part1(input: &str) -> i32 {
-    let reports = input.lines();
-
-    let mut safe_reports = 0;
-    for report in reports {
-        let levels = extract_levels_from(report);
-        if is_safe(&levels) {
-            safe_reports += 1;
-        }
-    }
-
-    safe_reports
+    input
+        .lines()
+        .filter(|report| is_safe(&parse_levels(report)))
+        .count() as i32
 }
 
 pub fn solve_part2(input: &str) -> i32 {
-    let reports = input.lines();
-
-    let mut safe_reports = 0;
-    for report in reports {
-        let levels = extract_levels_from(report);
-        if is_safe(&levels) {
-            safe_reports += 1;
-            continue;
-        }
-
-        for i in 0..levels.len() {
-            if is_safe(&[&levels[..i], &levels[i + 1..]].concat()) {
-                safe_reports += 1;
-                break;
+    input
+        .lines()
+        .filter(|report| {
+            let levels = parse_levels(report);
+            if is_safe(&levels) {
+                return true;
             }
-        }
-    }
 
-    safe_reports
+            // Check if removing one element results in a safe sequence
+            (0..levels.len()).any(|i| {
+                let (left, right) = levels.split_at(i);
+                is_safe(&[left, &right[1..]].concat()) //always leave out first element from right
+            })
+        })
+        .count() as i32
 }
 
 fn is_safe(levels: &[i32]) -> bool {
@@ -67,7 +56,7 @@ fn is_safe(levels: &[i32]) -> bool {
     is_safe
 }
 
-fn extract_levels_from(report: &str) -> Vec<i32> {
+fn parse_levels(report: &str) -> Vec<i32> {
     let levels: Vec<i32> = report
         .split(" ")
         .map(|s| s.parse::<i32>().unwrap_or(0))
@@ -75,6 +64,7 @@ fn extract_levels_from(report: &str) -> Vec<i32> {
     levels
 }
 
+#[derive(Debug)]
 enum Direction {
     Inc,
     Dec,
