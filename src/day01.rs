@@ -20,7 +20,7 @@ pub fn solve_part2(input: &str) -> i32 {
     let mut sum_of_similarity = 0;
     for v in left {
         match total_amount_right.get(&v) {
-            Some(&amount) => sum_of_similarity += v*amount,
+            Some(&amount) => sum_of_similarity += v * amount,
             _ => {
                 let mut amount_right = 0;
                 for rv in &right {
@@ -29,7 +29,7 @@ pub fn solve_part2(input: &str) -> i32 {
                     }
                 }
                 total_amount_right.insert(v, amount_right);
-                sum_of_similarity += v*amount_right
+                sum_of_similarity += v * amount_right
             }
         }
     }
@@ -38,7 +38,7 @@ pub fn solve_part2(input: &str) -> i32 {
 }
 
 fn parse_input(input: &str) -> (Vec<i32>, Vec<i32>) {
-    let mut left: Vec<i32> = vec![];  
+    let mut left: Vec<i32> = vec![];
     let mut right: Vec<i32> = vec![];
 
     for line in input.lines() {
@@ -61,7 +61,8 @@ mod tests {
             2   5
             1   3
             3   9
-            3   3".to_string();
+            3   3"
+            .to_string();
         assert_eq!(solve_part1(&input), 11);
     }
 
@@ -72,7 +73,8 @@ mod tests {
             2   5
             1   3
             3   9
-            3   3".to_string();
+            3   3"
+            .to_string();
         assert_eq!(solve_part2(&input), 31)
     }
 }
