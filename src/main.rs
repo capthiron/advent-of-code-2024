@@ -2,6 +2,7 @@ use std::env;
 
 mod day01;
 mod day02;
+mod day03;
 mod utils;
 
 fn main() {
@@ -28,6 +29,11 @@ fn main() {
             let input = utils::read_file_to_string("input/day02.txt").unwrap();
             println!("Day 2 - Part 1: {}", day02::solve_part1(&input));
             println!("Day 2 - Part 2: {}", day02::solve_part2(&input));
+        }
+        "3" => {
+            let input = utils::read_file_to_string("input/day03.txt").unwrap();
+            println!("Day 3 - Part 1: {}", day03::solve_part1(&input));
+            println!("Day 3 - Part 2: {}", day03::solve_part2(&input));
         }
         _ => {
             eprintln!("Invalid day: {}. Please enter a valid day number.", day);
