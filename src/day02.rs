@@ -10,14 +10,10 @@ pub fn solve_part2(input: &str) -> i32 {
         .lines()
         .filter(|report| {
             let levels = parse_levels(report);
-            if is_safe(&levels) {
-                return true;
-            }
-
             // Check if removing one element results in a safe sequence
             (0..levels.len()).any(|i| {
                 let (left, right) = levels.split_at(i);
-                is_safe(&[left, &right[1..]].concat()) //always leave out first element from right
+                is_safe(&[left, &right[1..]].concat())
             })
         })
         .count() as i32
