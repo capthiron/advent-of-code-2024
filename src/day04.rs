@@ -1,5 +1,4 @@
 pub fn solve_part1(input: &str) -> i32 {
-
     let mut xmas_count = 0;
 
     let word_search_matrix = parse_string_to_2d_vector(input);
@@ -31,31 +30,50 @@ pub fn solve_part1(input: &str) -> i32 {
 }
 
 pub fn solve_part2(input: &str) -> i32 {
-
     let m = parse_string_to_2d_vector(input);
 
     let mut x_mas_count = 0;
-    for (i , row) in m.iter().enumerate() {
+    for (i, row) in m.iter().enumerate() {
         for (j, _) in row.iter().enumerate() {
             if i > 0 && j > 0 && i < m.len() - 1 && j < row.len() - 1 && m[i][j] == 'A' {
-                let upper_left = m[(i as isize-1).rem_euclid(m.len() as isize) as usize][(j as isize-1).rem_euclid(m[0].len() as isize) as usize];
-                let upper_right = m[(i as isize-1).rem_euclid(m.len() as isize) as usize][(j as isize+1).rem_euclid(m[0].len() as isize) as usize];
-                let lower_left = m[(i as isize+1).rem_euclid(m.len() as isize) as usize][(j as isize-1).rem_euclid(m[0].len() as isize) as usize];
-                let lower_right = m[(i as isize+1).rem_euclid(m.len() as isize) as usize][(j as isize+1).rem_euclid(m[0].len() as isize) as usize];
+                let upper_left = m[(i as isize - 1).rem_euclid(m.len() as isize) as usize]
+                    [(j as isize - 1).rem_euclid(m[0].len() as isize) as usize];
+                let upper_right = m[(i as isize - 1).rem_euclid(m.len() as isize) as usize]
+                    [(j as isize + 1).rem_euclid(m[0].len() as isize) as usize];
+                let lower_left = m[(i as isize + 1).rem_euclid(m.len() as isize) as usize]
+                    [(j as isize - 1).rem_euclid(m[0].len() as isize) as usize];
+                let lower_right = m[(i as isize + 1).rem_euclid(m.len() as isize) as usize]
+                    [(j as isize + 1).rem_euclid(m[0].len() as isize) as usize];
 
-                if upper_left == 'M' && lower_right == 'S' && lower_left == 'M' && upper_right == 'S' {
+                if upper_left == 'M'
+                    && lower_right == 'S'
+                    && lower_left == 'M'
+                    && upper_right == 'S'
+                {
                     x_mas_count += 1;
                 }
 
-                if upper_left == 'S' && lower_right == 'M' && lower_left == 'M' && upper_right == 'S' {
-                    x_mas_count += 1;
-                }
-                
-                if upper_left == 'S' && lower_right == 'M' && lower_left == 'S' && upper_right == 'M' {
+                if upper_left == 'S'
+                    && lower_right == 'M'
+                    && lower_left == 'M'
+                    && upper_right == 'S'
+                {
                     x_mas_count += 1;
                 }
 
-                if upper_left == 'M' && lower_right == 'S' && lower_left == 'S' && upper_right == 'M' {
+                if upper_left == 'S'
+                    && lower_right == 'M'
+                    && lower_left == 'S'
+                    && upper_right == 'M'
+                {
+                    x_mas_count += 1;
+                }
+
+                if upper_left == 'M'
+                    && lower_right == 'S'
+                    && lower_left == 'S'
+                    && upper_right == 'M'
+                {
                     x_mas_count += 1;
                 }
             }
@@ -110,7 +128,6 @@ fn collect_diagonals(matrix: &[Vec<char>]) -> Vec<Vec<char>> {
         }
         diagonals.push(diagonal);
     }
-
 
     diagonals
 }
