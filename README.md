@@ -43,3 +43,6 @@ Feel free to fork this repository and contribute your own solutions or improveme
 ## 🌟 Happy Coding!
 
 May your days be merry and bright and may your code be bug-free! 🎄✨
+
+## 🤡 Favourite Meme - Day 6 Part 2
+![anakin and padme meme- day 6 part 2](https://preview.redd.it/2024-day-6-bruteforce-time-v0-n9o2goj5x85e1.png?auto=webp&s=801281dcf186ee18c9b67513b2d3099fd96dd97d)
