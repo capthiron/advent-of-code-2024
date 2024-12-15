@@ -21,8 +21,7 @@ pub fn solve_part2(input: &str) -> i32 {
 
     map_variants
         .iter()
-        .map(|map_variant| scrape_map_for_guard(map_variant.to_vec()).1)
-        .filter(|infinite_loop| *infinite_loop)
+        .filter(|map_variant| scrape_map_for_guard(map_variant.to_vec()).1)
         .count() as i32
 }
 
