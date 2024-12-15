@@ -9,19 +9,18 @@ pub fn solve_part2(input: &str) -> i32 {
     let map = parse_map(input);
     let path_to_walk = scrape_map_for_guard(&map).1;
 
-    let mut map_variants: Vec<Vec<Vec<char>>> = vec![];
-    for (x, y) in path_to_walk {
-        let c = map[y as usize][x as usize];
-        if c != '^' || c != 'v' || c != '<' || c != '>' {
-            let mut map_variant = map.clone();
-            map_variant[y as usize][x as usize] = '#';
-            map_variants.push(map_variant);
-        }
-    }
-
-    map_variants
+    path_to_walk
         .iter()
-        .filter(|map_variant| scrape_map_for_guard(&map_variant.to_vec()).2)
+        .filter_map(|(x, y)| {
+            let c = map[*y as usize][*x as usize];
+            if c != '^' || c != 'v' || c != '<' || c != '>' {
+                let mut map_variant = map.clone();
+                map_variant[*y as usize][*x as usize] = '#';
+                return Some(map_variant);
+            }
+            None
+        })
+        .filter(|map_variant| scrape_map_for_guard(map_variant).2)
         .count() as i32
 }
 
