@@ -108,7 +108,11 @@ fn scrape_map_for_guard(map: &[Vec<char>]) -> (i32, HashSet<(i32, i32)>, bool) {
         path_walked.insert(position);
     }
 
-    ((dist_positions.len() + 1) as i32, path_walked, infinite_loop)
+    (
+        (dist_positions.len() + 1) as i32,
+        path_walked,
+        infinite_loop,
+    )
 }
 
 fn parse_map(input: &str) -> Vec<Vec<char>> {
