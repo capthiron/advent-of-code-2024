@@ -1,34 +1,35 @@
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 
 pub fn solve_part1(input: &str) -> i32 {
     let map: Vec<Vec<char>> = parse_map(input);
-    scrape_map_for_guard(map).0
+    scrape_map_for_guard(&map).0
 }
 
 pub fn solve_part2(input: &str) -> i32 {
     let map = parse_map(input);
-    let mut map_variants: Vec<Vec<Vec<char>>> = vec![];
+    let path_to_walk = scrape_map_for_guard(&map).1;
 
-    for (y, row) in map.iter().enumerate() {
-        for (x, c) in row.iter().enumerate() {
-            if *c != '^' || *c != 'v' || *c != '<' || *c != '>' {
-                let mut map_variant = map.clone();
-                map_variant[y][x] = '#';
-                map_variants.push(map_variant);
-            }
+    let mut map_variants: Vec<Vec<Vec<char>>> = vec![];
+    for (x, y) in path_to_walk {
+        let c = map[y as usize][x as usize];
+        if c != '^' || c != 'v' || c != '<' || c != '>' {
+            let mut map_variant = map.clone();
+            map_variant[y as usize][x as usize] = '#';
+            map_variants.push(map_variant);
         }
     }
 
     map_variants
         .iter()
-        .filter(|map_variant| scrape_map_for_guard(map_variant.to_vec()).1)
+        .filter(|map_variant| scrape_map_for_guard(&map_variant.to_vec()).2)
         .count() as i32
 }
 
-fn scrape_map_for_guard(map: Vec<Vec<char>>) -> (i32, bool) {
+fn scrape_map_for_guard(map: &[Vec<char>]) -> (i32, HashSet<(i32, i32)>, bool) {
     let mut direction: Direction = Direction::Up;
     let mut position: (i32, i32) = (0, 0);
     let mut dist_positions: HashMap<(i32, i32), i32> = HashMap::new();
+    let mut path_walked = HashSet::new();
     let mut infinite_loop = false;
 
     for (y, row) in map.iter().enumerate() {
@@ -104,9 +105,10 @@ fn scrape_map_for_guard(map: Vec<Vec<char>>) -> (i32, bool) {
         }
 
         position = new_position;
+        path_walked.insert(position);
     }
 
-    ((dist_positions.len() + 1) as i32, infinite_loop)
+    ((dist_positions.len() + 1) as i32, path_walked, infinite_loop)
 }
 
 fn parse_map(input: &str) -> Vec<Vec<char>> {
