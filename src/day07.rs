@@ -22,11 +22,11 @@ fn solve(input: &str, operations: &[Operation]) -> i64 {
                 }
 
                 if result == *test_value {
-                    return *test_value; // Return the test value if the equation is satisfied
+                    return *test_value;
                 }
             }
 
-            0 // Return 0 if no configuration satisfies the equation
+            0
         })
         .sum()
 }
