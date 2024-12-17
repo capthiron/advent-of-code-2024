@@ -7,6 +7,7 @@ mod day04;
 mod day05;
 mod day06;
 mod day07;
+mod day08;
 mod utils;
 
 fn main() {
@@ -58,6 +59,11 @@ fn main() {
             let input = utils::read_file_to_string("input/day07.txt").unwrap();
             println!("Day 7 - Part 1: {}", day07::solve_part1(&input));
             println!("Day 7 - Part 2: {}", day07::solve_part2(&input));
+        }
+        "8" => {
+            let input = utils::read_file_to_string("input/day08.txt").unwrap();
+            println!("Day 8 - Part 1: {}", day08::solve_part1(&input));
+            println!("Day 8 - Part 2: {}", day08::solve_part2(&input));
         }
         _ => {
             eprintln!("Invalid day: {}. Please enter a valid day number.", day);

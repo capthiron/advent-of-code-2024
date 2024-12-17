@@ -1,7 +1,9 @@
+use crate::utils;
+
 pub fn solve_part1(input: &str) -> i32 {
     let mut xmas_count = 0;
 
-    let word_search_matrix = parse_string_to_2d_vector(input);
+    let word_search_matrix = utils::parse_string_to_2d_vector(input);
 
     let diagonals = collect_diagonals(&word_search_matrix);
     diagonals.iter().for_each(|diagonal| {
@@ -30,7 +32,7 @@ pub fn solve_part1(input: &str) -> i32 {
 }
 
 pub fn solve_part2(input: &str) -> i32 {
-    let m = parse_string_to_2d_vector(input);
+    let m = utils::parse_string_to_2d_vector(input);
 
     let mut x_mas_count = 0;
     for (i, row) in m.iter().enumerate() {
@@ -140,13 +142,6 @@ fn mirror_matrix(matrix: &[Vec<char>]) -> Vec<Vec<char>> {
         mirrored_matrix.push(mirrored_row);
     }
     mirrored_matrix
-}
-
-fn parse_string_to_2d_vector(input: &str) -> Vec<Vec<char>> {
-    input
-        .lines() // Create an iterator over the lines of the string
-        .map(|line| line.chars().collect()) // Map each line to a vector of chars
-        .collect() // Collect the results into a 2D vector
 }
 
 #[cfg(test)]
